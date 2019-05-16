@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link href="https://fonts.googleapis.com/css?family=Amatic+SC|Modak" rel="stylesheet">
+    <link rel="stylesheet" href="/assets/css/style.css">
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    {{!-- <script src="/homework/Burger/public/assets/js/main.js"></script> --}}
+    <title>Ren Burgers</title>
+</head>
+
+<body>
+    {{{body}}}
+</body>
+<script type="text/javascript">
+$(document).ready(function () {
+
+    //when you click submit, insert into database and restart project.
+    $(".submit-button").on("click", createBurger);
+    $(".btnDevour").on("click", updateBurger);
+
+    function createBurger(event) {
+        event.preventDefault();
+
+        var BurgerName = $("#submitBurger").val().trim();
+        console.log(BurgerName);
+        if(BurgerName.includes("burger")){
+            var newBurger = {
+                BurgerName
+            }
+        }else {
+            var newBurger = {
+                BurgerName: BurgerName + " Burger"
+            }
+        }
+
+        $.post("/api/burgers", newBurger, function (result) {
+            location.reload();
+        });
+    }
+
+    function updateBurger(event) {
+        event.preventDefault();
+        var id = $(this).data("burgername");
+        console.log(id);
+        $.ajax("/api/burgers/" + id, {
+            type: "PUT",
+            data: {
+                devoured: 1
+            }
+        }).then(function () {
+            location.reload();
+            console.log("devoured")
+        })
+    }
+});
+</script>
+</html>
