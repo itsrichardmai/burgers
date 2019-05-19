@@ -17,3 +17,12 @@ require("./controllers/burgers_controller")(app);
 app.listen(PORT, function(){
     console.log("App listenting on  http://localhost:" + PORT);
 })
+
+mongoose.Promise = global.Promise;
+
+mongoose.connect(
+    process.env.MONGODB_URI || "mongodb://user:password1@ds143326.mlab.com:43326/heroku_svnrzrr8",
+    {
+        useMongoClient: true
+    }
+);
